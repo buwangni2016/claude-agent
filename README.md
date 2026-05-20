@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Claude Agent
 
-## Getting Started
+Two independent projects in one repo:
 
-First, run the development server:
+## Project 1 — Vercel Claude Bot (root)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Next.js web chat app + Telegram webhook.  
+**Deploy: Vercel**
+
+```
+app/
+├── api/chat/route.ts      # Streaming chat API
+├── api/telegram/route.ts  # Telegram webhook → Claude
+└── page.tsx               # Web chat UI with model selector
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Environment variables:**
+```
+ANTHROPIC_API_KEY=...
+ANTHROPIC_BASE_URL=...
+ANTHROPIC_MODEL=claude-haiku-4-5-20251001
+MATON_API_KEY=...
+TELEGRAM_CONNECTION_ID=...
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project 2 — Telegram Claude Bot (telegram-claude-bot/)
 
-## Learn More
+Full-featured Telegram bot powered by Claude CLI.  
+**Deploy: Railway / Render / VPS**
 
-To learn more about Next.js, take a look at the following resources:
+Three versions, pick one:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Version | Features |
+|---------|----------|
+| v1-simple | AI chat + /cmd terminal |
+| v2-secure | v1 + auth + system monitor |
+| v3-full   | v2 + games + tools + UI |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Quick start:**
+```bash
+cd telegram-claude-bot
+bash setup.sh <YOUR_BOT_TOKEN>
+```
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Requires:** Python 3, claude CLI (`npm i -g @anthropic-ai/claude-code`)
